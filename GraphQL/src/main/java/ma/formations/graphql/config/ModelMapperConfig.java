@@ -1,8 +1,6 @@
 package ma.formations.graphql.config;
 
 import lombok.AllArgsConstructor;
-import ma.formations.graphql.common.CommonTools;
-import ma.formations.graphql.service.exception.BusinessException;
 import org.modelmapper.AbstractConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -35,20 +33,13 @@ public class ModelMapperConfig {
         Converter<String, Date> stringToDateConverter = new AbstractConverter<>() {
             @Override
             public Date convert(String s) {
-                try {
-                    return tools.stringToDate(s);
-                } catch (ParseException e) {
-                    try {
-                        throw new BusinessException(String.format("the date %s doesn’t respect the format %s ", s,
-                                tools.getDateFormat()));
-                    } catch (BusinessException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
+                return tools.stringToDate(s);
             }
         };
         modelMapper.addConverter(dateToStringConverter);
         modelMapper.addConverter(stringToDateConverter);
         return modelMapper;
     }
+
+
 }
