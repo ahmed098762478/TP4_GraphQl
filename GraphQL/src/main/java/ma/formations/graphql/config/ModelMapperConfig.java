@@ -38,8 +38,12 @@ public class ModelMapperConfig {
                 try {
                     return tools.stringToDate(s);
                 } catch (ParseException e) {
-                    throw new BusinessException(String.format("the date %s doesn’t respect the format %s ", s,
-                            tools.getDateFormat()));
+                    try {
+                        throw new BusinessException(String.format("the date %s doesn’t respect the format %s ", s,
+                                tools.getDateFormat()));
+                    } catch (BusinessException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
         };
