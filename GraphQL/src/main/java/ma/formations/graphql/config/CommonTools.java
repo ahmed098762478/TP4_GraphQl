@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class CommonTools {
     public Object getDateFormat() {
+        return null;
     }
 
     public Date stringToDate(String s) {
